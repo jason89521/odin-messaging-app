@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now()) @db.Timestamptz()
+  updatedAt  DateTime  @default(now()) @db.Timestamptz()
+  username   String    @unique @db.VarChar(30)
+  password   String
+  bio        String    @default("") @db.VarChar(400)
+  messages   Message[]
+  Chats      Chat[]
+  ChatAdmins Chat[]    @relation(name: "admin")
+
+  @@map("users")
+}
+
+model Chat {
+  id       String    @id @default(uuid())
+  name     String    @db.VarChar(50)
+  admin    User      @relation(name: "admin", fields: [adminId], references: [id])
+  adminId  Int
+  users    User[]
+  messages Message[]
+
+  @@map("chats")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String   @db.VarChar(1000)
+  createdAt DateTime @default(now()) @db.Timestamptz()
+  updatedAt DateTime @default(now()) @db.Timestamptz()
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  chatId    String
+  user      User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+
+  @@map("messages")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+
+  @@map("sessions")
+}
