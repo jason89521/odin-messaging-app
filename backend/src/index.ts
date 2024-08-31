@@ -39,7 +39,7 @@ app.all('*', (_, res) => {
   res.sendStatus(404);
 });
 
-server.listen(5566, () => {
+server.listen(5566, '0.0.0.0', () => {
   console.log('Listening on port 5566');
 });
 
