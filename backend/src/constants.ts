@@ -22,5 +22,6 @@ export const ORIGIN = (() => {
 
   throw new Error('Cannot find origin in env.');
 })();
+export const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5566;
 
 export const PAGINATION_SIZE = 20;

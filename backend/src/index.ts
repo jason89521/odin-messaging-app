@@ -8,7 +8,7 @@ import { verifyJWT } from './middlewares/auth';
 import { chatRouter } from './routes/chat';
 import { messageRouter } from './routes/message';
 import { User } from 'database/types';
-import { ORIGIN } from './constants';
+import { ORIGIN, PORT } from './constants';
 import { app, server, io } from './app';
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -39,8 +39,8 @@ app.all('*', (_, res) => {
   res.sendStatus(404);
 });
 
-server.listen(5566, '0.0.0.0', () => {
-  console.log('Listening on port 5566');
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
 
 const ioAuth: RequestHandler = (req, res, next) => {
