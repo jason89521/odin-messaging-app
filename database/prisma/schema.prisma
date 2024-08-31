@@ -22,8 +22,8 @@ model User {
   password   String
   bio        String    @default("") @db.VarChar(400)
   messages   Message[]
-  Chats      Chat[]
-  ChatAdmins Chat[]    @relation(name: "admin")
+  chats      Chat[]
+  chatAdmins Chat[]    @relation(name: "admin")
 
   @@map("users")
 }
@@ -46,7 +46,7 @@ model Message {
   updatedAt DateTime @default(now()) @db.Timestamptz()
   chat      Chat     @relation(fields: [chatId], references: [id])
   chatId    String
-  user      User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
 
   @@map("messages")
