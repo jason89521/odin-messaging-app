@@ -1,0 +1,16 @@
+{
+  "name": "messaging-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backend": "pnpm --filter=backend",
+    "database": "pnpm --filter=database",
+    "socket": "pnpm --filter=socket",
+    "frontend": "pnpm --filter=frontend",
+    "secret": "node ./scripts/generateSecret.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
