@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "build": "tsc",
+    "generate-client": "prisma generate",
     "migrate-deploy": "prisma migrate deploy"
   },
   "exports": {
